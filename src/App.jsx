@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { login, logout } from './store/authSlice'
 import authService from './appwrite/auth';
 import { Outlet } from 'react-router'
@@ -10,10 +10,6 @@ import { Header, Footer } from './components/index'
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
-  const user = useSelector((state) => state.authSliceReducer);
-
-  console.log(user);
-
 
   const dispatch = useDispatch()
 
@@ -21,7 +17,7 @@ function App() {
     authService.getCurrentUser()
     .then((userData) => {
       if (userData) {
-        dispatch(login({userData}));
+        dispatch(login(userData));
       }else{
         dispatch(logout());
       }

@@ -3,10 +3,13 @@ import { Link, useNavigate } from "react-router"
 import LogoutBtn from './LogOutBtn'
 import { Container } from "../index"
 import Logo from '../Logo'
+import {  } from "react"
 
 function Header() {
-  const authStatus = useSelector((state) => state.authSliceReducer)
+  const authStatus = useSelector((state) => state.auth.status);
+  const currUser = useSelector((state) => state.auth.userData);
   const navigate = useNavigate()
+
 
   const navItems = [
     {
@@ -61,6 +64,7 @@ function Header() {
               </li>
             )}
           </ul>
+          {currUser && (<b>{currUser.name}</b>)}
         </nav>
         </Container>
     </header>

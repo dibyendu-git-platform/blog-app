@@ -71,8 +71,7 @@ export class Service{
             return await this.databases.getDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                slug
-            
+                slug           
             )
         } catch (error) {
             console.log("Appwrite serive :: getPost :: error", error);
@@ -86,11 +85,10 @@ export class Service{
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 queries,
-                
-
             )
         } catch (error) {
             console.log("Appwrite serive :: getPosts :: error", error);
+            console.log(conf.appwriteDatabaseId, conf.appwriteCollectionId)
             return false
         }
     }
@@ -124,10 +122,15 @@ export class Service{
     }
 
     getFilePreview(fileId){
-        return this.bucket.getFilePreview(
-            conf.appwriteBucketId,
-            fileId
-        )
+        try {
+            return this.bucket.getFilePreview(
+                conf.appwriteBucketId,
+                fileId
+            )     
+        } catch (error) {
+            console.log("Appwrite serive :: getFilePreview :: error", error);
+            return "../../noImage.jpg"
+        }
     }
 }
 

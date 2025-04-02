@@ -16,21 +16,22 @@ class AuthService {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
-                // call another method
-                // return this.login({email, password});
+                return this.login({email, password});
             } else {
                return  userAccount;
             }
         } catch (error) {
             console.log("Appwrite serive :: createUserAccount :: error", error);
+            throw error;
         }
     }
 
     async login({email, password}) {
         try {
-            return await this.account.createEmailSession(email, password);
+            return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
             console.log("Appwrite serive :: loginUser :: error", error);
+            throw error;
         }
     }
 
