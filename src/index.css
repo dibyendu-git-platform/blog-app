@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+main{
+    position: relative;
+    min-height: 85vh;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;            /* Footer height */
+}
