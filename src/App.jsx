@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { useDispatch } from 'react-redux'
 import { login, logout } from './store/authSlice'
+import { addBlogs, removeBlogs } from './store/blogSlice'
 import authService from './appwrite/auth';
+import appwriteService from './appwrite/config';
 import { Outlet } from 'react-router'
 import { Header, Footer } from './components/index'
 
@@ -18,8 +20,14 @@ function App() {
     .then((userData) => {
       if (userData) {
         dispatch(login(userData));
+        appwriteService.getPosts().then((posts) => {
+            if (posts) {
+              dispatch(addBlogs(posts.documents));
+            }
+        })
       }else{
         dispatch(logout());
+        dispatch(removeBlogs());
       }
     })
     .finally(setIsLoading(false));

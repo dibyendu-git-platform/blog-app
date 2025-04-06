@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router"
 import LogoutBtn from './LogOutBtn'
 import { Container } from "../index"
 import Logo from '../Logo'
-import {  } from "react"
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);

@@ -1,10 +1,12 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router'
 import { login as authLogin } from '../store/authSlice'
 import {Button, Input, Logo} from "./index"
 import {useDispatch} from "react-redux"
 import authService from "../appwrite/auth"
+import appwriteService from "../appwrite/config"
 import {useForm} from "react-hook-form"
+import { addBlogs } from '../store/blogSlice'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -19,6 +21,13 @@ const Login = () => {
             if (session) {
                 const userData = await authService.getCurrentUser();
                 if(userData) dispatch(authLogin(userData));
+                if (userData) {
+                    appwriteService.getPosts().then((posts) => {
+                        if (posts) {
+                          dispatch(addBlogs(posts.documents));
+                        }
+                    })
+                };
                 navigate("/")
             }
         } catch (error) {
