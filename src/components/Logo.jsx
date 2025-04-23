@@ -1,7 +1,7 @@
 
 function Logo({width = '100px'}) {
   return (
-    <div>Logo</div>
+    <img src="/icons-blog.png" alt="logo-icon" className="logo" width={width} />
   )
 }
 
